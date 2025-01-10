@@ -7,9 +7,11 @@ app.use(express.json());
 //connect database
 dbconnect();
 //Root Route
-app.use('api/user',userRouter)
+app.use('/api/user',userRouter)
 
-
+// app.get('/',(req,res)=>{
+//     res.send('server run port on 3000')
+// })
 app.listen(3000,()=>{
-    console.log('server run port on 300')
+    console.log('server run port on 3000')
 })

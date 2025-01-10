@@ -17,6 +17,10 @@ const userScheema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    role:{
+        type:String,
+        default:'user'
+    },
     createAt: {
       type: Date,
       default: Date.now(),
@@ -25,4 +29,4 @@ const userScheema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model('UserModel',userScheema);
+module.exports = mongoose.model('OwnerModel',userScheema);
