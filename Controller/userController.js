@@ -22,7 +22,7 @@ const userRegister = async (req, res) => {
     const user = new OwnerModel({
       username,
       email,
-      bcryptPass,
+      password:bcryptPass,
       role: role || "user",
     });
     await user.save();
@@ -46,12 +46,10 @@ const userLogin = async (req, res) => {
     //getting that specific user
     const user = await OwnerModel.findOne({ email });
 
-    bcrypt.compare(password,user.password, (error, comparePass) =>{
-        if(!comparePass){
-            return res.send('invalid cradential')
-        }
-    });
-    
+    const comparePass = await bcrypt.compare(password,user.password);
+    if(!comparePass){
+        return res.send('invalid cradential')
+    }
     //jwt implements
     const token = jwt.sign(
       {
@@ -76,4 +74,9 @@ const userLogin = async (req, res) => {
   }
 };
 
-module.exports = { userLogin, userRegister };
+//User Privet Router
+const userPrivetRoute = async (req,res) =>{
+res.send('welcome to privet admin router')
+}
+
+module.exports = { userLogin, userRegister,userPrivetRoute };
