@@ -1,23 +1,30 @@
-const multer = require('multer');
-const path = require('path');
+const multer = require("multer");
+const path = require("path");
 
-// Configure Multer storage to specify the destination and filename
+// Configure Multer storage
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    // Ensure the uploads folder exists (create if not)
-    const uploadDir = path.join(__dirname, 'uploads');
-    cb(null, uploadDir);
+  destination: function (req, file, cb) {
+    cb(null, "imageupload/"); // Ensure the "imageupload" directory exists
   },
-  filename: (req, file, cb) => {
-    // Sanitize file name by replacing special characters
-    const cleanFileName = file.originalname.replace(/[^a-zA-Z0-9.-]/g, '_');
-    const fileName = `${Date.now()}-${cleanFileName}`;
-    cb(null, fileName); // Set the sanitized file name
-  }
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname)); // Append the file extension
+  },
 });
 
-// Initialize Multer with the defined storage
-const multerMiddleware = multer({ storage });
+// File filter for images
+const filterPath = (req, file, cb) => {
+  if (file.mimetype.startsWith("image")) {
+    cb(null, true);
+  } else {
+    cb(new Error("This is not an image. Please upload an image."));
+  }
+};
 
-// Export the upload middleware
+// Initialize Multer middleware
+const multerMiddleware = multer({
+  storage: storage,
+  fileFilter: filterPath,
+});
+
 module.exports = multerMiddleware;

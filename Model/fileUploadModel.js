@@ -8,12 +8,12 @@ const imageScheema = new mongoose.Schema({
     publicId:{
         type:String,
         required:true
+    },
+    createBy:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"UserModel",
+        required:true
     }
-    // createBy:{
-    //     type:mongoose.Schema.Types.ObjectId,
-    //     ref:"UserModel",
-    //     required:true
-    // }
 },{timestamps:true})
 
 module.exports = mongoose.model('ImageModel',imageScheema);

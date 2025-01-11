@@ -35,7 +35,7 @@ const imageUploade = async (req, res) => {
     const data = new imageModel({
       url,
       publicId,
-      // createBy:req.user.id
+      createBy:req.user.id
     });
     await data.save();
 
