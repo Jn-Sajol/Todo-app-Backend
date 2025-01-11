@@ -1,6 +1,7 @@
 const express = require('express');
 const dbconnect = require('./Db/databaseConnect');
 const userRouter = require('./Router/userRoute')
+const todoRouter = require('./Router/todoRoute')
 const app = express();
 app.use(express.json());
 
@@ -8,6 +9,7 @@ app.use(express.json());
 dbconnect();
 //Root Route
 app.use('/api/user',userRouter)
+app.use('/api/task',todoRouter)
 
 // app.get('/',(req,res)=>{
 //     res.send('server run port on 3000')
