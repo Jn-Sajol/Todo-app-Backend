@@ -56,6 +56,7 @@ const userLogin = async (req, res) => {
         email: user.email,
         password: user.password,
         role: user.role,
+        id:user._id
       },
       "secretkey",
       { expiresIn: "30m" }
