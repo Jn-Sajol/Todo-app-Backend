@@ -10,14 +10,17 @@ cloudinary.config({
 
 const cloudurlpublicid = async (filepath) => {
   try {
-    const data = await cloudinary.uploader.upload(filepath);
+    const data = await cloudinary.uploader.upload(filepath, {
+      resource_type: "video",
+    });
     console.log(data);
     return {
       url: data.url,
-      publicId: data.publicId,
+      publicId: data.public_id,
     };
   } catch (error) {
-    throw new error("path is not correct");
+    // Corrected error instantiation: should be `new Error()`
+    throw new Error("Failed to upload video to Cloudinary: " + error.message);
   }
 };
 
@@ -34,17 +37,18 @@ const videoUpload = async (req, res) => {
     const data = new videoModel({
       url,
       publicId,
-      createBy: req.user.id,
+      //   createBy: req.user._id,
     });
     await data.save();
     res.status(200).json({
-        success:true,
-        message:`succcessfuly created video`
-    })
+      success: true,
+      message: `succcessfuly created video`,
+    });
   } catch (error) {
+    console.error("Error occurred during video upload:", error.message);
     res.status(500).json({
       success: false,
-      message: `server error ${error}`,
+      message: "Server error: " + error.message,
     });
   }
 };

@@ -3,6 +3,7 @@ const dbconnect = require('./Db/databaseConnect');
 const userRouter = require('./Router/userRoute')
 const todoRouter = require('./Router/todoRoute')
 const imageUploadRouter = require('./Router/imageUploadRoute')
+const videoUploadRouter = require('./Router/videoRouter')
 const app = express();
 app.use(express.json());
 
@@ -12,6 +13,7 @@ dbconnect();
 app.use('/api/user',userRouter)
 app.use('/api/todo',todoRouter)
 app.use('/api/image',imageUploadRouter)
+app.use('/api/video',videoUploadRouter)
 
 // app.get('/',(req,res)=>{
 //     res.send('server run port on 3000')

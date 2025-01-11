@@ -9,10 +9,10 @@ const videoSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    createBy:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'UserModel'
-    }
+    // createBy:{
+    //     type:mongoose.Schema.Types.ObjectId,
+    //     ref:'UserModel'
+    // }
 },{timestamps:true})
 
 
