@@ -9,7 +9,7 @@ app.use(express.json());
 dbconnect();
 //Root Route
 app.use('/api/user',userRouter)
-app.use('/api/task',todoRouter)
+app.use('/api/todo',todoRouter)
 
 // app.get('/',(req,res)=>{
 //     res.send('server run port on 3000')

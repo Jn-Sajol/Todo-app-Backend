@@ -3,7 +3,7 @@ const { getalltask, getsigleTask, createtask, updatetask, deletetask } = require
 const router = express.Router();
 
 router.get('/getalltask',getalltask)
-router.get('/singletask',getsigleTask)
+router.get('/singletask/:id',getsigleTask)
 router.post('/createtask',createtask)
 router.put('/updatetask',updatetask)
 router.delete('/deletetask',deletetask)
