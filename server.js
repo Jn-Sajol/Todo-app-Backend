@@ -4,6 +4,7 @@ const userRouter = require('./Router/userRoute')
 const todoRouter = require('./Router/todoRoute')
 const imageUploadRouter = require('./Router/imageUploadRoute')
 const videoUploadRouter = require('./Router/videoRouter')
+const productRouter = require('./Router/productRoute')
 const app = express();
 app.use(express.json());
 
@@ -14,6 +15,7 @@ app.use('/api/user',userRouter)
 app.use('/api/todo',todoRouter)
 app.use('/api/image',imageUploadRouter)
 app.use('/api/video',videoUploadRouter)
+app.use('/api/product',productRouter)
 
 // app.get('/',(req,res)=>{
 //     res.send('server run port on 3000')

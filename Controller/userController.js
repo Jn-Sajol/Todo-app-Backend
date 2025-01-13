@@ -80,4 +80,48 @@ const userPrivetRoute = async (req,res) =>{
 res.send('welcome to privet admin router')
 }
 
-module.exports = { userLogin, userRegister,userPrivetRoute };
+
+//Change Password
+const changePass = async (req,res) => {
+try {
+  const {oldPass,newPass} = req.body;
+const userId = req.user.id;
+
+//identify user
+const user = await OwnerModel.findById(userId);
+if(!user){
+  return res.status(404).json({
+    success:false,
+    message:'invalid old password'
+  })
+}
+
+//compare the password
+const compare = await bcrypt.compare(oldPass,user.password);
+if(!compare){
+  return res.status(404).json({
+    success:false,
+    message:'invalid old password'
+  })
+}
+
+//making password hash
+const haspass = await bcrypt.hash(newPass,10)
+
+//update the password to user
+
+user.password = haspass;
+await user.save();
+res.status(200).json({
+  sucess:true,
+  message:'password change succesfully'
+})
+} catch (error) {
+  res.status(500).json({
+    success: false,
+    message: "server error",
+  });
+}
+}
+
+module.exports = { userLogin, userRegister,userPrivetRoute,changePass };
