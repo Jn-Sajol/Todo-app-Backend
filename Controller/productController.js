@@ -59,7 +59,8 @@ const getterThanFiftyProduct = async (req, res) => {
             _id:'$category',
             price:{$sum:'$price'}
         }
-    }
+    },
+    {$sort:{price:1}}
   ]);
   console.log(filterData);
 };
