@@ -53,7 +53,7 @@ const createProduct = async (req, res) => {
 
 const getterThanFiftyProduct = async (req, res) => {
   const filterData = await productModel.aggregate([
-    { $match: { category: "Lather" }},
+    { $match: { price:{$gte:50} }},
     {
         $group:{
             _id:'$category',
